@@ -1,5 +1,6 @@
 package com.springmvc.springmongodbweb.models;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -17,6 +18,7 @@ public class Article {
 	String imageUrl;
 	List<Blurb> conBlurbs;
 	List<Blurb> proBlurbs;
+	Date createdDate;
 	int likes;
 	int dislikes;
 	
@@ -109,6 +111,14 @@ public class Article {
 
 	public void setDislikes(int dislikes) {
 		this.dislikes = dislikes;
+	}
+	
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 }
 

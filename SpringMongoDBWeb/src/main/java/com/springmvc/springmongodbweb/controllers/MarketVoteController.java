@@ -1,6 +1,7 @@
 package com.springmvc.springmongodbweb.controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -16,13 +17,10 @@ import com.springmvc.springmongodbweb.repositories.IssueTagRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -40,9 +38,11 @@ public class MarketVoteController {
     IndustryTagRepository industryTagRepository;
     
     public static final String kStringSuccessful = "The Articles have been created";
+    public static final String kClickAdded = "The article has been updated with the clicks";
+    
 
     @RequestMapping(value = "/article/create/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String save(@RequestBody List<Article> articles) {
+    public String createArticles(@RequestBody List<Article> articles) {
     	ListIterator<Article> articleItr = articles.listIterator();
     	if(articleItr != null){
     		while(articleItr.hasNext()){
@@ -52,6 +52,9 @@ public class MarketVoteController {
     	    	List<IssueTag> createdIssueTags = new ArrayList<IssueTag>();
     	    	List<IndustryTag> createdIndustryTags = new ArrayList<IndustryTag>();
     	    	
+    	    	//adding createdDate
+    	    	Date date = new Date();
+    	    	article.setCreatedDate(date);
     	    	//creating blurbs
     	        List<Blurb> conBlurbs = article.getConBlurb();
     	        createdConBlurbs = createBlurbs(conBlurbs);
@@ -76,7 +79,25 @@ public class MarketVoteController {
         
         return MarketVoteController.kStringSuccessful;
     }
-
+    
+    @RequestMapping(value = "/article/get/all/", method = RequestMethod.GET)
+    public List<Article> getArticles(){
+    	Iterable<Article> existingArticlesItr = articleRepository.findAll();
+    	List<Article> existingArticles = convertFromIteratorToList(existingArticlesItr);
+    	return existingArticles;
+    }
+    @RequestMapping(value = "/article/get/{id}/", method = RequestMethod.GET)
+    public Article getArticleById(@PathVariable String id){
+    	Article article = articleRepository.findOne(id);
+    	return article;
+    }
+    
+    @RequestMapping(value = "/article/conblurb/click/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String addClick(Article article){
+    	 Article updatedArticle = articleRepository.save(article);
+    	 return MarketVoteController.kClickAdded;
+    }
+    
     public List<Blurb> createBlurbs(List<Blurb> blurbs){
     	Company createdCompany = null;
     	List<Blurb> createdBlurbs = new ArrayList<Blurb>();
@@ -140,89 +161,16 @@ public class MarketVoteController {
         return createdIndustryTags;
     }
     
-    
-    
-    
-   /* @RequestMapping("/show/{id}")
-    public String show(@PathVariable String id, Model model) {
-        model.addAttribute("product", productRepository.findOne(id));
-        return "show";
+    public List<Article> convertFromIteratorToList(Iterable<Article> existingArticlesItr){
+    	if(existingArticlesItr instanceof List) {
+    		return (List<Article>) existingArticlesItr;
+    	}
+    	ArrayList<Article> list = new ArrayList<Article>();
+    	if(existingArticlesItr != null) {
+    		for(Article article: existingArticlesItr) {
+    			list.add(article);
+    	    }
+    	}
+    	return list;
     }
-
-    @RequestMapping("/delete")
-    public String delete(@RequestParam String id) {
-        Product product = productRepository.findOne(id);
-        productRepository.delete(product);
-
-        return "redirect:/product";
-    }
-
-    @RequestMapping("/edit/{id}")
-    public String edit(@PathVariable String id, Model model) {
-        model.addAttribute("product", productRepository.findOne(id));
-        return "edit";
-    }
-
-    @RequestMapping("/update")
-    public String update(@RequestParam String id, @RequestParam String prodName, @RequestParam String prodDesc, @RequestParam Double prodPrice, @RequestParam String prodImage) {
-        Product product = productRepository.findOne(id);
-        product.setProdName(prodName);
-        product.setProdDesc(prodDesc);
-        product.setProdPrice(prodPrice);
-        product.setProdImage(prodImage);
-        productRepository.save(product);
-
-        return product.getId();
-    }
-
-    @RequestMapping("/manufacturer")
-    public String Manufacturer(Model model) {
-        model.addAttribute("manufacturer", manufacturerRepository.findAll());
-        return "manufacturer";
-    }
-
-    @RequestMapping("/man/create")
-    //@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String manCreate(Model model) {
-        return "create";
-    }
-
-    @RequestMapping("/man/save")
-    public String manSave(@RequestParam String manName, @RequestParam String manDesc) {
-        Manufacturer man = new Manufacturer();
-        man.setManName(manName);
-        man.setManDesc(manDesc);
-        manufacturerRepository.save(man);
-        return man.getId();
-    }
-
-    @RequestMapping("/man/show/{id}")
-    public String manShow(@PathVariable String id, Model model) {
-        model.addAttribute("manufacturer", manufacturerRepository.findOne(id));
-        return "show";
-    }
-
-    @RequestMapping("/man/delete")
-    public String manDelete(@RequestParam String id) {
-        Manufacturer manufacturer = manufacturerRepository.findOne(id);
-        manufacturerRepository.delete(manufacturer);
-
-        return "redirect:/product";
-    }
-
-    @RequestMapping("/man/edit/{id}")
-    public String manEdit(@PathVariable String id, Model model) {
-        model.addAttribute("product", manufacturerRepository.findOne(id));
-        return "edit";
-    }
-
-    @RequestMapping("/man/update")
-    public String manUpdate(@RequestParam String id, @RequestParam String manName, @RequestParam String manDesc) {
-        Manufacturer man = manufacturerRepository.findOne(id);
-        man.setManName(manName);
-        man.setManDesc(manDesc);
-        manufacturerRepository.save(man);
-
-        return man.getId();
-    } */
 }
