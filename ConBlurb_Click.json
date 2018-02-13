@@ -1,0 +1,73 @@
+{
+    "id": "5a82609f3b7ffa2fe4cc96b2",
+    "title": "Pepsi Almost Has Environmental Disaster, Liberals Lose Minds over Kendall Jenner Ad",
+    "content": "Some 7,200 gallons of concentrated Mountain Dew syrup created a “huge foaming event” and generated environmental concerns after it went down the drain, literally, at the Pepsi bottling plant on Mason Road in Howell last month.",
+    "industryTags": [
+        {
+            "id": "5a82609f3b7ffa2fe4cc96b0",
+            "name": "PepsiCo"
+        },
+        {
+            "id": "5a82609f3b7ffa2fe4cc96b1",
+            "name": "Beverages"
+        }
+    ],
+    "issueTags": [
+        {
+            "id": "5a82609f3b7ffa2fe4cc96af",
+            "name": "Nature Conservancy"
+        },
+        {
+            "id": "5a8232983b7ffa4678878ad2",
+            "name": "Environment"
+        }
+    ],
+    "imageUrl": null,
+    "createdDate": 1518493855253,
+    "likes": 0,
+    "dislikes": 0,
+    "proBlurb": [
+        {
+            "company": {
+                "id": "5a82609f3b7ffa2fe4cc96ad",
+                "name": "Coca-Cola",
+                "logoUrl": "url_sample-5",
+                "industryTags": null
+            },
+            "content": "The Coca-Cola Co. operates as a beverage company. It manufactures, markets, and sells non-alcoholic beverages which include sparkling beverages and still beverages such as waters; enhanced waters; juices and juice drinks.",
+            "clicks": 12
+        },
+        {
+            "company": {
+                "id": "5a82609f3b7ffa2fe4cc96ae",
+                "name": "Pepper Snapple Group",
+                "logoUrl": "url_sample-6",
+                "industryTags": null
+            },
+            "content": "Dr Pepper Snapple Group, Inc. engages in the manufacturing, marketing and distribution of non-alcoholic beverages with a portfolio of flavored carbonated soft drinks and non-carbonated beverages. It operates through the following segments: Beverage Concentrates, Packaged Beverages, and Latin America Beverages.",
+            "clicks": 14
+        }
+    ],
+    "conBlurb": [
+        {
+            "company": {
+                "id": "5a82609f3b7ffa2fe4cc96ab",
+                "name": "Lipton",
+                "logoUrl": "no-logo",
+                "industryTags": null
+            },
+            "content": "Lipton is a British brand of tea, owned by the company Unilever. Lipton was also a supermarket chain in the United Kingdom before it was sold off to Argyll Foods, to allow the company to focus solely on tea.",
+            "clicks": 15
+        },
+        {
+            "company": {
+                "id": "5a82609f3b7ffa2fe4cc96ac",
+                "name": "Tropicana Products Inc.",
+                "logoUrl": "no-logo-1",
+                "industryTags": null
+            },
+            "content": "Tropicana Products, Inc. is an American multinational company which primarily makes fruit-based beverages. It was founded in 1947 by Anthony T. Rossi in Bradenton, Florida. Since 1998, it has been owned by PepsiCo. Tropicana's headquarters are in Chicago. The company specializes in the production of orange juice.",
+            "clicks": 22
+        }
+    ]
+}
