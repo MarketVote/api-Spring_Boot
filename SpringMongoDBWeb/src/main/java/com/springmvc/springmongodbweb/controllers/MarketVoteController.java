@@ -93,9 +93,21 @@ public class MarketVoteController {
     }
     
     @RequestMapping(value = "/article/conblurb/click/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String addClick(Article article){
-    	 Article updatedArticle = articleRepository.save(article);
-    	 return MarketVoteController.kClickAdded;
+    public String addConClick(@RequestBody Article article){
+    	List<Blurb> updatedConBlurbs = article.getConBlurb();
+    	Article existingArticle = articleRepository.findOne(article.getId());
+    	existingArticle.setConBlurb(updatedConBlurbs);
+    	Article updatedArticle = articleRepository.save(existingArticle);
+    	return MarketVoteController.kClickAdded;
+    }
+    
+    @RequestMapping(value = "/article/problurb/click/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String addProClick(Article article){
+    	List<Blurb> updatedProBlurbs = article.getProBlurb();
+    	Article existingArticle = articleRepository.findOne(article.getId());
+    	existingArticle.setConBlurb(updatedProBlurbs);
+    	Article updatedArticle = articleRepository.save(existingArticle);
+    	return MarketVoteController.kClickAdded;
     }
     
     public List<Blurb> createBlurbs(List<Blurb> blurbs){
